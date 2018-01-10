@@ -1,4 +1,5 @@
 @shopping_cart = []
+@validity_check = true
 
 @products = [
   { reference_number: 1231, name: "Super Lite Mat", price: 10 },
@@ -26,20 +27,30 @@ def choosing_product
     puts "\nWhat would you like to buy? Enter reference number: "
 
   choice = gets.chomp.to_i
+  @validity_check = ref_nums.include? choice
   @products.each { |product|
     if choice == product[:reference_number]
       print "\nYour chosen product is #{product[:name]}. Good choice!\n"
       @shopping_cart << product
-   elsif ref_nums.include? choice == false
-     puts "\nThat reference number doesn't exist! Pick a valid number! Now!"
-   end
+    elsif @validity_check == false
+      puts "\nThat reference number doesn't exist! Pick a valid number!"
+      break
+    end
  }
 end
 
-choosing_product
+loop do
+  choosing_product
+  if @validity_check == false
+    choosing_product
+  else
+    break
+  end
+end
+
 
 def total_product
-  puts "\nSo, you picked:"
+  puts "\nYour cart now includes:"
   amount = 0
   @shopping_cart.each { |product|
     amount += product[:price]
