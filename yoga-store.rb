@@ -1,4 +1,4 @@
-shopping_cart = []
+@shopping_cart = []
 
 @products = [
   { reference_number: 1231, name: "Super Lite Mat", price: 10 },
@@ -16,3 +16,63 @@ puts "\nNamaste yogi! We are delighted to have you in our store. We have lots of
 @products.each { |product|
   puts "\n#{product[:name]} for #{product[:price]} Euro (ref. #{product[:reference_number]})"
 }
+
+def choosing_product
+  ref_nums = []
+  @products.each { |product|
+      ref_nums << product[:reference_number]
+  }
+
+    puts "\nWhat would you like to buy? Enter reference number: "
+
+  choice = gets.chomp.to_i
+  @products.each { |product|
+    if choice == product[:reference_number]
+      print "\nYour chosen product is #{product[:name]}. Good choice!\n"
+      @shopping_cart << product
+   elsif ref_nums.include? choice == false
+     puts "\nThat reference number doesn't exist! Pick a valid number! Now!"
+   end
+ }
+end
+
+choosing_product
+
+def total_product
+  puts "\nSo, you picked:"
+  amount = 0
+  @shopping_cart.each { |product|
+    amount += product[:price]
+    product.each { |key, value|
+      if key == :name
+        puts "#{value}"
+      end
+    }
+  }
+  puts "\nThe total amount of the products in your shopping card is #{amount} Euro."
+end
+
+def sth_else
+  loop do
+    total_product
+    puts "Would you like something else? (Y/N)"
+    answer = gets.chomp.upcase
+    if answer == "Y"
+      choosing_product
+    elsif answer == "N"
+      puts "Thank you for shopping with us!"
+      break
+    else
+      puts "Sorry, I didn't understand your answer. Please put either Y or N!"
+    end
+  end
+end
+
+sth_else
+
+=begin
+def display_cart
+  for
+  puts
+end
+=end
