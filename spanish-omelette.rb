@@ -108,3 +108,10 @@ def break_eggs
     print_progress_bar
   end
 end
+
+def ask_if_ready(step, index)
+  puts "Are you ready for step #{index + 1}?\n(#{step[:description]})"
+  answer = gets.chomp
+
+  answer.upcase == 'Y'
+end
